@@ -6,13 +6,7 @@ The signal-processing front end of a software-defined radio: an NCO (direct digi
 
 ## Chain
 
-```
-ADC samples ──►(×)──► CIC ↓16 ──► I
-               │
-          NCO cos/sin (32-bit phase accumulator, 1024-entry quarter-wave ROM)
-               │
-            ──►(×)──► CIC ↓16 ──► Q
-```
+![Architecture](docs/diagrams/architecture.svg)
 
 - `rtl/nco.sv`: 32-bit phase accumulator, 12-bit phase → 16-bit amplitude via quarter-wave symmetry; f_out = inc / 2³² · f_s
 - `rtl/ddc.sv`: multiply by e^(−jωn) (I = x·cos, Q = −x·sin), Q1.15 rounding
@@ -51,6 +45,12 @@ make test
 make lint
 make synth     # CIC cell count
 ```
+
+## Test run
+
+Output of the CI command (`make test lint`), captured from a local run:
+
+![Test run](docs/screenshots/test_run.svg)
 
 ## Limitations / next steps
 
